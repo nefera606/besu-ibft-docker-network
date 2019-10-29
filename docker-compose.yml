@@ -1,0 +1,73 @@
+version: '2.1'
+services:
+  #Besu 1
+  node1:
+    user: root
+    container_name: besu-node-1
+    volumes: 
+      - ./node1:/var/lib/node
+      - ./common:/var/lib/besu
+      - ./orion/node1/node1Key.pub:/var/lib/orion/node1Key.pub
+    image: hyperledger/besu:latest
+    command: 
+      --config-file=/var/lib/besu/config.toml
+      --network-id 123
+      --bootnodes
+      --p2p-host=172.16.1.30
+      --privacy-enabled=true
+      --privacy-url=http://172.16.1.51:8880
+      --privacy-public-key-file=/var/lib/orion/node1Key.pub
+    ports:
+      - "8545:8545"
+      - "8546:8549"
+    networks:
+      besu:
+        ipv4_address: 172.16.1.30 
+    restart: always
+  #Besu 2
+  node2:
+    container_name: besu-node-2
+    volumes: 
+      - ./node2:/var/lib/node
+      - ./common:/var/lib/besu
+      - ./orion/node2/node2Key.pub:/var/lib/orion/node2Key.pub
+    image: hyperledger/besu:latest
+    command: 
+      --config-file=/var/lib/besu/config.toml
+      --network-id 123
+      --bootnodes="enode://9683f07e51ed54f30a58332db6cdabc0f2413127961d2ca11bfa637a091a6f738c5f0f977d3cfbc0b603f7cf78b3b05f1c6d58d3f9b7d37d1b3198590e1d5ade@172.16.1.30:30000"
+      --privacy-enabled=true
+      --privacy-url=http://172.16.1.52:8880
+      --privacy-public-key-file=/var/lib/orion/node2Key.pub
+    ports:
+      - "8547:8545"
+    networks:
+      besu:
+        ipv4_address: 172.16.1.31
+    restart: always
+  #Besu 3
+  node3:
+    container_name: besu-node-3
+    volumes:
+      - ./node3:/var/lib/node
+      - ./common:/var/lib/besu
+      - ./orion/node3/node3Key.pub:/var/lib/orion/node3Key.pub
+    image: hyperledger/besu:latest
+    command: 
+      --config-file=/var/lib/besu/config.toml
+      --network-id 123
+      --bootnodes="enode://9683f07e51ed54f30a58332db6cdabc0f2413127961d2ca11bfa637a091a6f738c5f0f977d3cfbc0b603f7cf78b3b05f1c6d58d3f9b7d37d1b3198590e1d5ade@172.16.1.30:30000"
+      --privacy-enabled=true
+      --privacy-url=http://172.16.1.51:8880
+      --privacy-public-key-file=/var/lib/orion/node3Key.pub
+    ports:
+      - "8548:8545"
+    networks:
+      besu:
+        ipv4_address: 172.16.1.32
+
+# Network
+networks:
+  besu:
+    external: 
+      name: orion_besu

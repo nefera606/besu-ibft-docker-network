@@ -1,0 +1,57 @@
+# Valid TOML config file
+# data-path="/etc/besu/besudata" # Path
+data-path="/var/lib/node/data" 
+node-private-key-file="/var/lib/node/data/key"
+
+# Network
+host-whitelist=["*"]
+
+p2p-port=30000
+p2p-host="0.0.0.0"
+discovery-enabled=true
+max-peers=42
+
+# Metrics
+#metrics-category=["BIG_QUEUE", "BLOCKCHAIN", "EXECUTORS", "JVM", "NETWORK", "PEERS", "PROCESS", "ROCKSDB", "RPC", "SYNCHRONIZER"]
+#metrics-enabled=true
+#metrics-host="127.0.0.1"
+#metrics-port="6174"
+# Push metrics, not with poll metrics
+#metrics-push-enabled="true"
+#metrics-push-host="127.0.0.1"
+#metrics-push-interval=30
+#metrics-push-port="6174"
+
+# RPC configuration
+rpc-http-enabled=true
+rpc-http-port=8545
+rpc-http-cors-origins=["all"]
+rpc-http-api=[ 'ADMIN', 'ETH', 'NET', 'WEB3', 'CLIQUE', 'IBFT', 'PERM', 'DEBUG', 'MINER', 'EEA', 'PRIV', 'TXPOOL']
+
+# WS RPC configuration
+rpc-ws-enabled=true
+rpc-ws-port=8549
+rpc-ws-host="0.0.0.0"
+rpc-ws-api=[ 'ADMIN', 'ETH', 'NET', 'WEB3', 'CLIQUE', 'IBFT', 'PERM', 'DEBUG', 'MINER', 'EEA', 'PRIV', 'TXPOOL']
+
+# Chain
+# genesis-file="/etc/besu/genesis.json" # Path to the custom genesis file
+genesis-file="/var/lib/besu/genesis.json"
+min-gas-price=0
+
+# Mining, ignored in clique or ibft
+miner-enabled=true
+miner-coinbase="0xb641d88590f8c596b3fa8ad5b6109a177322e3e7"
+
+# Account white list for the node
+#permissions-accounts-config-file-enabled=true
+#permissions-accounts-config-file or permissions-accounts-contract-address=[]
+
+# Private transactions
+#privacy-enabled=true
+#privacy-public-key-file=
+#privacy-url=
+
+# TxPool CHECK IN PRODUCTION
+tx-pool-retention-hours="1"
+tx-pool-max-size="8000"

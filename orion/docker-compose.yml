@@ -1,0 +1,96 @@
+version: '2.1'
+services:
+  #Ethsigner
+  signer1:
+    container_name: ethsigner-1
+    volumes: 
+      - ./signer1:/opt/data
+    image: pegasyseng/ethsigner:latest
+    command: 
+      --chain-id=1729
+      --downstream-http-host=172.16.1.30
+      --downstream-http-port=8545
+      --http-listen-port=8546
+      --http-listen-host=0.0.0.0
+      file-based-signer -k=/opt/data/keystore -p=/opt/data/pass.pwd
+    ports:
+      - "8551:8546"
+    networks:
+      besu:
+        ipv4_address: 172.16.1.41
+    restart: always
+
+  #Ethsigner
+  signer2:
+    container_name: ethsigner-2
+    volumes: 
+      - ./signer2:/opt/data
+    image: pegasyseng/ethsigner:latest
+    command: 
+      --chain-id=1729
+      --downstream-http-host=172.16.1.32
+      --downstream-http-port=8545
+      --http-listen-port=8546
+      --http-listen-host=0.0.0.0
+      file-based-signer -k=/opt/data/keystore -p=/opt/data/pass.pwd
+    ports:
+      - "8552:8546"
+    networks:
+      besu:
+        ipv4_address: 172.16.1.42
+    restart: always
+
+  #Orion 1
+  orion1:
+    container_name: orion-1
+    image: orion-self:latest
+    ports:
+      - "8881:8880"
+    volumes:
+      - ./node1:/opt/orion
+    command:
+      - /opt/orion/orion.conf
+    networks:
+      besu:
+        ipv4_address: 172.16.1.51
+
+  #Orion 2
+  orion2:
+    container_name: orion-2
+    image: orion-self:latest
+    ports:
+      - "8882:8880"
+    volumes:
+      - ./node2:/opt/orion
+    command:
+      - /opt/orion/orion.conf
+    depends_on: 
+      - orion1
+    networks:
+      besu:
+        ipv4_address: 172.16.1.52
+
+  #Orion 3
+  orion3:
+    container_name: orion-3
+    image: orion-self:latest
+    ports:
+      - "8883:8880"
+    volumes:
+      - ./node2:/opt/orion
+    command:
+      - /opt/orion/orion.conf
+    depends_on: 
+      - orion1
+    networks:
+      besu:
+        ipv4_address: 172.16.1.53
+
+# Network
+networks:
+  besu:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.1.1/24
+          gateway: 172.16.1.1
