@@ -17,7 +17,7 @@ curl -X POST http://127.0.0.1:8881/createPrivacyGroup \
   -d '{ 
     "addresses": [ 
       "BDUuik7jnXyzuSA8yEHxoQDJ88UrcWBRwJEvsQngLwY=", 
-      "qR0+FmdJm1POHiueCvQx8qf9vjT7YoudMevkviQoBnM=" 
+      "zNHKczHZ05W4fPALZMl5G4DuIGVbTxtfp86PQDIklhA" 
     ], 
     "from": "BDUuik7jnXyzuSA8yEHxoQDJ88UrcWBRwJEvsQngLwY=", 
    "name": "Organisation A", 
@@ -133,4 +133,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"priv_getTransactionCount","param
 
 docker exec -it besu-node-1 curl -X GET http://172.16.1.51:8880/upcheck
 
-curl -X POST --data '{"jsonrpc":"2.0","method":"eea_sendTransaction","params":[{"from": "0x982cdba86ad9267681935e572bd8f076e18fd57a","nonce":"0x0","data": "0x608060405234801561001057600080fd5b5060c68061001f6000396000f30060806040526004361060485763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630c55699c8114604d5780631a15863d146072575b600080fd5b348015605857600080fd5b50605f6089565b6040805191825251602090910181900390f35b348015607d57600080fd5b506087600435608f565b005b60005481565b6000805490910190555600a165627a7a72305820b6f261f7030cfb0264b28c3ad4f4fdaa20f01d576265078b31f8154bc162ec180029","gas": "0x27600","gasPrice": "0x0","value": "0x0","privateFrom": "BDUuik7jnXyzuSA8yEHxoQDJ88UrcWBRwJEvsQngLwY=","privateFor": ["qR0+FmdJm1POHiueCvQx8qf9vjT7YoudMevkviQoBnM="],"restriction": "restricted"}], "id":1}' http://127.0.0.1:8551
+curl -X POST --data '{"jsonrpc":"2.0","method":"eea_sendTransaction","params":[{"from": "0x982cdba86ad9267681935e572bd8f076e18fd57a","nonce":"0x1","data": "0x608060405234801561001057600080fd5b5060c68061001f6000396000f30060806040526004361060485763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630c55699c8114604d5780631a15863d146072575b600080fd5b348015605857600080fd5b50605f6089565b6040805191825251602090910181900390f35b348015607d57600080fd5b506087600435608f565b005b60005481565b6000805490910190555600a165627a7a72305820b6f261f7030cfb0264b28c3ad4f4fdaa20f01d576265078b31f8154bc162ec180029","gas": "0x27600","gasPrice": "0x0","value": "0x0","privateFrom": "BDUuik7jnXyzuSA8yEHxoQDJ88UrcWBRwJEvsQngLwY=","privateFor": ["qR0+FmdJm1POHiueCvQx8qf9vjT7YoudMevkviQoBnM="],"restriction": "restricted"}], "id":1}' http://127.0.0.1:8551
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"priv_getTransactionReceipt","params":["0xf15be1964c81b69c3f408f64caad237d97aa848358b37608a4c584811de2212f"],"id":1}' http://127.0.0.1:8545

@@ -58,7 +58,7 @@ services:
       --network-id 123
       --bootnodes="enode://9683f07e51ed54f30a58332db6cdabc0f2413127961d2ca11bfa637a091a6f738c5f0f977d3cfbc0b603f7cf78b3b05f1c6d58d3f9b7d37d1b3198590e1d5ade@172.16.1.30:30000"
       --privacy-enabled=true
-      --privacy-url=http://172.16.1.51:8880
+      --privacy-url=http://172.16.1.53:8880
       --privacy-public-key-file=/var/lib/orion/node3Key.pub
     ports:
       - "8548:8545"
